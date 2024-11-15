@@ -113,6 +113,10 @@ USE_I18N = True
 
 USE_TZ = True
 
+# Authentication Settings
+LOGIN_REDIRECT_URL = '/'  # Redirect here after a successful login
+LOGOUT_REDIRECT_URL = '/login/'  # Redirect here after logging out
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
