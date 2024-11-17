@@ -1,4 +1,2 @@
-from django.contrib import admin
-
-
+from django.contrib import render
 # Register your models here.
