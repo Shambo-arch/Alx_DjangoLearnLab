@@ -4,11 +4,12 @@ from rest_framework import status
 from rest_framework.test import APIClient
 from .models import Book
 from django.contrib.auth.models import User
+from rest_framework.test import APITestCase
 
-class BookApiTests(TestCase):
+class BookApiTests(APITestCase):
+
     def setUp(self):
-        # Set up a test user and a client for API requests
-        self.client = APIClient()
+        # Create test user and book
         self.user = User.objects.create_user(username='testuser', password='testpassword')
         self.book_data = {
             'title': 'Test Book',
