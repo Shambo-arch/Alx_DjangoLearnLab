@@ -6,7 +6,7 @@ from .serializers import BookSerializer
 import django_filters
 
 # Filter class to define available filters
-class BookFilter(django_filters.FilterSet):
+class BookFilter(django_filters.FilterSet,filters.OrderingFilter):
     title = django_filters.CharFilter(lookup_expr='icontains')
     author = django_filters.CharFilter(lookup_expr='icontains')
     publication_year = django_filters.NumberFilter(lookup_expr='exact')
