@@ -1,14 +1,17 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Register</title>
-</head>
-<body>
-<h2>Register</h2>
-<form method="post">
+<!-- users/templates/users/register.html -->
+{% extends 'blog/base.html' %}
+
+{% load static %}
+
+{% block content %}
+  <h2>Register</h2>
+  <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Register</button>
-</form>
-</body>
-</html>
+  </form>
+
+  <!-- Include the CSS file for styling the registration page -->
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+{% endblock %}
+
