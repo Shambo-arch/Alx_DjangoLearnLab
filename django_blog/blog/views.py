@@ -115,7 +115,7 @@ def post_detail(request, pk):
 
 # Add a comment
 @login_required
-def add_comment(request, pk):
+def CommentCreateView(request, pk):
     post = get_object_or_404(Post, pk=pk)
 
     if request.method == 'POST':
@@ -130,7 +130,7 @@ def add_comment(request, pk):
 
 # Edit a comment
 @login_required
-def edit_comment(request, pk):
+def CommentUpdateView(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
 
     if comment.author != request.user:
@@ -148,7 +148,7 @@ def edit_comment(request, pk):
 
 # Delete a comment
 @login_required
-def delete_comment(request, pk):
+def CommentDeleteView(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
 
     if comment.author != request.user:
