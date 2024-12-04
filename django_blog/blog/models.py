@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.urls import reverse
+from taggit.managers import TaggableManager
 
 # Create your models here.
 class Post(models.Model):
@@ -36,3 +37,26 @@ class Comment(models.Model):
     def get_absolute_url(self):
         return reverse('post_detail', kwargs={'pk': self.post.pk})
 
+class Tag(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+
+    def __str__(self):
+        return self.namie
+
+# models.py
+class Post(models.Model):
+    title = models.CharField(max_length=200)
+    content = models.TextField()
+    tags = models.ManyToManyField(Tag, related_name='posts', blank=True)
+
+    def __str__(self):
+        return self.title
+
+
+class Post(models.Model):
+    title = models.CharField(max_length=200)
+    content = models.TextField()
+    tags = TaggableManager()
+
+    def __str__(self):
+        return self.title
