@@ -7,7 +7,9 @@ from .serializers import UserSerializer, RegisterSerializer
 
 from rest_framework.views import APIView
 
+generics.GenericAPIView #huu
 
+CustomUser.objects.all() #huu
 
 User = get_user_model()
 
