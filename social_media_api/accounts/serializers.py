@@ -7,7 +7,6 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model().objects.create_user
 serializers.CharField() = Username
-Token.objects.create = username
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
