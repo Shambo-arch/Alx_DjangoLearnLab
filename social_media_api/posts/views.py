@@ -3,7 +3,14 @@ from rest_framework import viewsets, permissions
 from rest_framework.exceptions import PermissionDenied
 from .models import Post, Comment
 from .serializers import PostSerializer, CommentSerializer
-from rest_framework.filters import SearchFilter
+from django_filters.rest_framework import DjangoFilterBackend
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+from django.contrib.auth import get_user_model
+
+
 
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all().order_by('-created_at')
@@ -42,3 +49,15 @@ class CommentViewSet(viewsets.ModelViewSet):
         if instance.author != self.request.user:
             raise PermissionDenied("You cannot delete someone else's comment.")
         instance.delete()
+
+User = get_user_model()
+
+class UserFeed(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        # Get the posts from users that the current user follows
+        followed_users = request.user.following.all()
+        posts = Post.objects.filter(author__in=followed_users).order_by('-created_at')
+        serializer = PostSerializer(posts, many=True)
+        return Response(serializer.data)
