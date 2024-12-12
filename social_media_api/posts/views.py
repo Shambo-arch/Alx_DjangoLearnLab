@@ -112,7 +112,8 @@ class LikePostView(APIView):
     def post(self, request, pk):
         # Safely get the post or raise a 404 error
         post = get_object_or_404(Post, pk=pk)
-        
+
+        generics.get_object_or_404(Post, pk=pk)
         # Create or retrieve the like
         like, created = Like.objects.get_or_create(user=request.user, post=post)
         
