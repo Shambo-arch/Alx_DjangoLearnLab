@@ -9,7 +9,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth import get_user_model
-
+from django.shortcuts import get_object_or_404
 
 
 class PostViewSet(viewsets.ModelViewSet):
@@ -105,5 +105,21 @@ class UnlikePostView(APIView):
             like.delete()
             return Response({'message': 'Post unliked'}, status=status.HTTP_204_NO_CONTENT)
         except Like.DoesNotExist:
+
             return Response({'error': 'You have not liked this post'}, status=status.HTTP_400_BAD_REQUEST)
+
+class LikePostView(APIView):
+    def post(self, request, pk):
+        # Safely get the post or raise a 404 error
+        post = get_object_or_404(Post, pk=pk)
+        
+        # Create or retrieve the like
+        like, created = Like.objects.get_or_create(user=request.user, post=post)
+        
+        if created:
+            message = "You liked this post!"
+        else:
+            message = "You have already liked this post."
+        
+        return Response({"message": message})
 
